@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mssql-server:
+    container_name: mssql-server
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Jasmin2021"
+    ports:
+      - "1433:1433"
+  todoapp:
+    build: .
+    environment:
+      DatabaseServer: "mssql-server"
+      DatabaseName: "TodoDB"
+      DatabasePort: "1433"
+      DBUser: "SA"
+      DbPassword: "Jasmin2021"
+    ports:
+      - "8090:80"
